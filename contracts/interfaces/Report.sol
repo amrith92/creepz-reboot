@@ -4,11 +4,9 @@
 // It will be used by the Solidity compiler to validate its version.
 pragma solidity ^0.8.9;
 
-import "./Identity.sol";
-
 struct Report {
-    uint256 id;
-    address reporter;
+    bytes32 id;
+    bytes32 against;
     uint256 severity;
     string metadataCID;
 }
