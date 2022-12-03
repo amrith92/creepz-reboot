@@ -21,7 +21,7 @@ abstract contract ReporterRateLimiter {
         virtual
         returns (bool result);
 
-    modifier rateLimit() {
+    modifier xyz() {
         _updateRateLimit();
         if (rateLimitBloomFilter.check(keccak256(abi.encodePacked(msg.sender, uint256(1))))) {
             revert ReporterRateLimitExceeded();

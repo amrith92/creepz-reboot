@@ -21,7 +21,7 @@ interface IdManager {
         bytes32 id,
         uint256 severity,
         string calldata metadataCID
-    ) external returns (uint256 reportId);
+    ) external returns (bytes32 reportId);
 
     /*
      * @notice Gets the reputation score of an identifier
@@ -31,5 +31,5 @@ interface IdManager {
     function getReputation(bytes32 identifier)
         external
         view
-        returns (uint256 score);
+        returns (int256 score);
 }

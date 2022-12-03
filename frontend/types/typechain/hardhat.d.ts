@@ -57,6 +57,22 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC165__factory>;
     getContractFactory(
+      name: "CreepzIdManager",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CreepzIdManager__factory>;
+    getContractFactory(
+      name: "ReporterRateLimiter",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ReporterRateLimiter__factory>;
+    getContractFactory(
+      name: "IdManager",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IdManager__factory>;
+    getContractFactory(
+      name: "BloomFilter",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BloomFilter__factory>;
+    getContractFactory(
       name: "YourContract",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.YourContract__factory>;
@@ -120,6 +136,26 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IERC165>;
+    getContractAt(
+      name: "CreepzIdManager",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CreepzIdManager>;
+    getContractAt(
+      name: "ReporterRateLimiter",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ReporterRateLimiter>;
+    getContractAt(
+      name: "IdManager",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IdManager>;
+    getContractAt(
+      name: "BloomFilter",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BloomFilter>;
     getContractAt(
       name: "YourContract",
       address: string,

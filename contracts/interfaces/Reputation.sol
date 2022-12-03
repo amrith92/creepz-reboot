@@ -5,8 +5,6 @@
 pragma solidity ^0.8.9;
 
 struct Reputation {
-    uint256 score;
-
-    uint256 abuseReportCount;
-    uint256 positiveActionCount;
+    int256 score;
+    uint256 numInteractions;
 }

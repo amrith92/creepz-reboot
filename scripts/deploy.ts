@@ -17,21 +17,10 @@ async function main() {
   // fs.unlinkSync(`${config.paths.artifacts}/contracts/contractAddress.ts`);
 
   // We get the contract to deploy
-  const YourContract = await ethers.getContractFactory('YourContract');
-  const contract = await YourContract.deploy();
+  const IdManager = await ethers.getContractFactory('CreepzIdManager');
+  const contract = await IdManager.deploy();
   await contract.deployed();
-  console.log('YourContract deployed to:', contract.address);
-
-  const YourNFT = await ethers.getContractFactory('YourNFT');
-  const YourNFTContract = await YourNFT.deploy();
-  await YourNFTContract.deployed();
-  console.log('YourNFT deployed to:', YourNFTContract.address);
-  saveFrontendFiles(
-    contract.address,
-    'YourContract',
-    YourNFTContract.address,
-    'YourNFTContract'
-  );
+  console.log('IdManager deployed to:', contract.address);
 }
 
 // https://github.com/nomiclabs/hardhat-hackathon-boilerplate/blob/master/scripts/deploy.js
