@@ -13,41 +13,29 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "AccessControl",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AccessControl__factory>;
+    getContractFactory(
+      name: "IAccessControl",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IAccessControl__factory>;
+    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
     getContractFactory(
-      name: "ERC721",
+      name: "ERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC721__factory>;
+    ): Promise<Contracts.ERC20__factory>;
     getContractFactory(
-      name: "ERC721Burnable",
+      name: "IERC20Metadata",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC721Burnable__factory>;
+    ): Promise<Contracts.IERC20Metadata__factory>;
     getContractFactory(
-      name: "ERC721Enumerable",
+      name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC721Enumerable__factory>;
-    getContractFactory(
-      name: "ERC721URIStorage",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC721URIStorage__factory>;
-    getContractFactory(
-      name: "IERC721Enumerable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC721Enumerable__factory>;
-    getContractFactory(
-      name: "IERC721Metadata",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC721Metadata__factory>;
-    getContractFactory(
-      name: "IERC721",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC721__factory>;
-    getContractFactory(
-      name: "IERC721Receiver",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC721Receiver__factory>;
+    ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
       name: "ERC165",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -73,59 +61,48 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BloomFilter__factory>;
     getContractFactory(
-      name: "YourContract",
+      name: "ICircuitValidator",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.YourContract__factory>;
+    ): Promise<Contracts.ICircuitValidator__factory>;
     getContractFactory(
-      name: "YourNFT",
+      name: "IZKPVerifier",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.YourNFT__factory>;
+    ): Promise<Contracts.IZKPVerifier__factory>;
+    getContractFactory(
+      name: "ZKPVerifier",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ZKPVerifier__factory>;
 
+    getContractAt(
+      name: "AccessControl",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AccessControl>;
+    getContractAt(
+      name: "IAccessControl",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IAccessControl>;
     getContractAt(
       name: "Ownable",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Ownable>;
     getContractAt(
-      name: "ERC721",
+      name: "ERC20",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.ERC721>;
+    ): Promise<Contracts.ERC20>;
     getContractAt(
-      name: "ERC721Burnable",
+      name: "IERC20Metadata",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.ERC721Burnable>;
+    ): Promise<Contracts.IERC20Metadata>;
     getContractAt(
-      name: "ERC721Enumerable",
+      name: "IERC20",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.ERC721Enumerable>;
-    getContractAt(
-      name: "ERC721URIStorage",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC721URIStorage>;
-    getContractAt(
-      name: "IERC721Enumerable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC721Enumerable>;
-    getContractAt(
-      name: "IERC721Metadata",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC721Metadata>;
-    getContractAt(
-      name: "IERC721",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC721>;
-    getContractAt(
-      name: "IERC721Receiver",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC721Receiver>;
+    ): Promise<Contracts.IERC20>;
     getContractAt(
       name: "ERC165",
       address: string,
@@ -157,15 +134,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BloomFilter>;
     getContractAt(
-      name: "YourContract",
+      name: "ICircuitValidator",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.YourContract>;
+    ): Promise<Contracts.ICircuitValidator>;
     getContractAt(
-      name: "YourNFT",
+      name: "IZKPVerifier",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.YourNFT>;
+    ): Promise<Contracts.IZKPVerifier>;
+    getContractAt(
+      name: "ZKPVerifier",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ZKPVerifier>;
 
     // default types
     getContractFactory(

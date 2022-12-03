@@ -7,5 +7,5 @@ import type * as interfaces from "./interfaces";
 export type { interfaces };
 import type * as library from "./library";
 export type { library };
-export type { YourContract } from "./YourContract";
-export type { YourNFT } from "./YourNFT";
+import type * as thirdparty from "./thirdparty";
+export type { thirdparty };

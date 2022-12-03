@@ -36,12 +36,14 @@ function inputReducer(state: State, action: Action) {
 type SubmitReportFormParams = {
   address: string | undefined
   isLoading: boolean
+  onValidated: (value: string) => void
   onSubmit: () => void
 }
 
 const SubmitReportForm = ({
   address,
   isLoading,
+  onValidated,
   onSubmit,
 }: SubmitReportFormParams) => {
   const [state, dispatch] = useReducer(inputReducer, {
@@ -58,6 +60,9 @@ const SubmitReportForm = ({
 
   function handleBlur() {
     const isValid = state.value.trim().length > 0 // TODO: add validation
+    if (isValid) {
+      onValidated(state.value);
+    }
     dispatch({
       type: 'VALIDATE_INPUT',
       payload: isValid,

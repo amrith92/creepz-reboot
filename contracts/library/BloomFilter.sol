@@ -59,8 +59,6 @@ library BloomFilter {
         return true;
     }
 
-    // Please see the test/TestBloomFilter.sol to know how to use this library in another contract.
-
     /**
      * @dev It initialize the Filter struct. It sets the appropriate hash count for the expected number of item
      * @param _itemNum Expected number of items to be added

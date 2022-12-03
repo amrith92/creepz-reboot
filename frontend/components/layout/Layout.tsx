@@ -28,7 +28,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                   Home
                 </Link>
               </NextLink>
-              <NextLink href="/nft" passHref legacyBehavior>
+              <NextLink href="/my-reputation" passHref legacyBehavior>
                 <Link px="4" py="1">
                   My Reputation
                 </Link>
@@ -51,7 +51,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         <Container mt="8" py="8" maxWidth="container.xl">
           <Text mb="4">
             Built with &#9829; by{' '}
-            <Link href="https://twitter.com/hunterhchang">thegeekmachine</Link>
+            a+s
           </Text>
           <LocalFaucetButton />
         </Container>

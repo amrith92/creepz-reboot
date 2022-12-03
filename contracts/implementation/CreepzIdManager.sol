@@ -4,35 +4,48 @@
 // It will be used by the Solidity compiler to validate its version.
 pragma solidity ^0.8.9;
 
+import "@openzeppelin/contracts/access/AccessControl.sol";
+//import "../thirdparty/polygonid/verifiers/ZKPVerifier.sol";
 import "../interfaces/IdManager.sol";
 import "../interfaces/Report.sol";
 import "../interfaces/Reputation.sol";
 import "./ReporterRateLimiter.sol";
 
-contract CreepzIdManager is IdManager, ReporterRateLimiter {
+import "hardhat/console.sol";
+
+contract CreepzIdManager is IdManager, ReporterRateLimiter, AccessControl {
     int256 private constant SMOOTHING_FACTOR = 4;
     uint256 private constant REPUTATION_DELTA_UPPERBOUND = 20;
     uint256 private constant REPUTATION_DELTA_LOWERBOUND = 1;
-    uint8 private constant REPUTATION_DELTA_ACCURACY = 8;
+    int256 private constant DEFAULT_GOODWILL_REPUTATION_DELTA = 5;
+    bytes32 public constant COMMUNITY_MODERATOR_ROLE =
+        keccak256("COMMUNITY_MODERATOR");
 
     event NewReport(bytes32 against, uint256 severity);
 
     mapping(bytes32 => Report) private reports;
     mapping(bytes32 => Reputation) reputations;
 
+    constructor() {
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        initializeRateLimiter(100_000_000_000);
+    }
+
     function setReporterRateLimit(uint64 aRate)
         public
         override
         returns (bool result)
     {
+        require(hasRole(COMMUNITY_MODERATOR_ROLE, msg.sender));
         // TODO: unimplemented
+        return false;
     }
 
     function report(
         bytes32 id,
         uint256 severity,
         string calldata metadataCID
-    ) override public xyz returns (bytes32 newReportId) {
+    ) public override rateLimit returns (bytes32 newReportId) {
         bytes32 reportId = keccak256(abi.encodePacked(msg.sender, id));
         require(
             reports[reportId].id == bytes32(0),
@@ -40,8 +53,22 @@ contract CreepzIdManager is IdManager, ReporterRateLimiter {
         );
         reports[reportId] = Report(reportId, id, severity, metadataCID);
         // compute reputation
-        uint256 delta = normalize(severity, REPUTATION_DELTA_LOWERBOUND, REPUTATION_DELTA_UPPERBOUND, REPUTATION_DELTA_ACCURACY);
-        updateReputation(keccak256(abi.encodePacked(msg.sender)), -int256(delta));
+        uint256 delta = normalize(
+            severity,
+            REPUTATION_DELTA_LOWERBOUND,
+            REPUTATION_DELTA_UPPERBOUND
+        );
+        bytes32 reporter = keccak256(abi.encodePacked(msg.sender));
+        console.log("Reporter");
+        console.logBytes32(reporter);
+        console.logUint(delta);
+        updateReputation(id, -int256(delta));
+        if (reputations[reporter].score == 0) {
+            // reporter is unknown, set a default "goodwill" reputation.
+            updateReputation(reporter, DEFAULT_GOODWILL_REPUTATION_DELTA);
+        } else {
+            updateReputation(reporter, int256(REPUTATION_DELTA_LOWERBOUND) * 2);
+        }
         emit NewReport(id, severity);
         return reportId;
     }
@@ -66,26 +93,26 @@ contract CreepzIdManager is IdManager, ReporterRateLimiter {
             SMOOTHING_FACTOR) / int256(numInteractions + 1);
 
         // Update the entity's reputation score and number of interactions
-        reputations[id] = Reputation(
-            newReputation,
-            numInteractions + 1
-        );
+        reputations[id] = Reputation(newReputation, numInteractions + 1);
     }
 
     function normalize(
         uint256 value,
         uint256 minValue,
-        uint256 maxValue,
-        uint8 decimalPlaces
-    ) internal pure returns (uint256) {
+        uint256 maxValue
+    ) internal pure returns (uint256 normalizedValue) {
+        // Calculate the difference between the original value and the minimum value of the range
+        uint256 diff = value - minValue;
+
         // Calculate the range of the values
         uint256 range = maxValue - minValue;
 
-        // Calculate the normalized value by dividing the value by the range and multiplying by 10^decimalPlaces
-        uint256 normalizedValue = ((value - minValue) * (10**decimalPlaces)) /
-            range;
-
-        // Return the normalized value
+        // Calculate the normalized value by dividing the value by the range
+        normalizedValue = diff / range;
         return normalizedValue;
     }
+
+    fallback() external payable {}
+
+    receive() external payable {}
 }

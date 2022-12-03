@@ -4,5 +4,4 @@
 export * as implementation from "./implementation";
 export * as interfaces from "./interfaces";
 export * as library from "./library";
-export { YourContract__factory } from "./YourContract__factory";
-export { YourNFT__factory } from "./YourNFT__factory";
+export * as thirdparty from "./thirdparty";
