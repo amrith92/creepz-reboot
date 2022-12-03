@@ -1,0 +1,3 @@
+[submodule "contracts/thirdparty/polygonid"]
+	path = contracts/thirdparty/polygonid
+	url = git@github.com:0xPolygonID/contracts.git
