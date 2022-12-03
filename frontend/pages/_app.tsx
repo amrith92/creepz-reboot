@@ -32,12 +32,12 @@ const { chains, provider, webSocketProvider } = configureChains(
 )
 
 const { wallets } = getDefaultWallets({
-  appName: 'RainbowKit demo',
+  appName: 'creepz',
   chains,
 })
 
 const demoAppInfo = {
-  appName: 'Rainbowkit Demo',
+  appName: 'creepz',
 }
 
 const connectors = connectorsForWallets(wallets)

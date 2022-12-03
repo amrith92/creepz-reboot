@@ -30,12 +30,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               </NextLink>
               <NextLink href="/nft" passHref legacyBehavior>
                 <Link px="4" py="1">
-                  Mint NFT
-                </Link>
-              </NextLink>
-              <NextLink href="/token-gated" passHref legacyBehavior>
-                <Link px="4" py="1">
-                  Token Gated
+                  My Reputation
                 </Link>
               </NextLink>
             </Flex>
@@ -55,8 +50,8 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <footer>
         <Container mt="8" py="8" maxWidth="container.xl">
           <Text mb="4">
-            Built by{' '}
-            <Link href="https://twitter.com/hunterhchang">Hunter Chang</Link>
+            Built with &#9829; by{' '}
+            <Link href="https://twitter.com/hunterhchang">thegeekmachine</Link>
           </Text>
           <LocalFaucetButton />
         </Container>

@@ -26,8 +26,8 @@ export const Head = ({
 }): JSX.Element => {
   const router = useRouter()
   const meta: MetaProps = {
-    title: 'Next.js Ethereum Starter',
-    description: 'Next.js - RainbowKit - Hardhat',
+    title: 'creepz | reputation',
+    description: 'identity reputation & non-repudiation protocol',
     image: `${WEBSITE_HOST_URL}/images/site-preview.png`,
     type: 'website',
     ...customMeta,
