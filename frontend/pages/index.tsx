@@ -22,13 +22,18 @@ import { useCheckLocalChain } from '../hooks/useCheckLocalChain'
 import { useIsMounted } from '../hooks/useIsMounted'
 import SubmitReportForm from '../components/report/SubmitReportForm';
 import { keccak256 } from 'ethers/lib/utils.js';
+import { QRCode } from 'react-qr-svg';
+import {v4 as uuidv4} from 'uuid';
+import proofRequest from '../../proofRequest';
 
 /**
  * Constants & Helpers
  */
 
-const GOERLI_CONTRACT_ADDRESS = '0x3B73833638556f10ceB1b49A18a27154e3828303'
+const MUMBAI_CONTRACT_ADDRESS = '0xbCFEE8065E595D30E811303ce81711EcC9acDc50'
 
+let qrProofRequestJson: any = { ...proofRequest };
+qrProofRequestJson.id = uuidv4();
 
 const Home: NextPage = () => {
 
@@ -38,7 +43,7 @@ const Home: NextPage = () => {
 
   const CONTRACT_ADDRESS = isLocalChain
     ? LOCAL_CONTRACT_ADDRESS
-    : GOERLI_CONTRACT_ADDRESS
+    : MUMBAI_CONTRACT_ADDRESS
 
   const { address } = useAccount()
 
@@ -106,6 +111,13 @@ const Home: NextPage = () => {
       <Box maxWidth="container.sm" p="8" mt="8" bg="gray.100">
         <Text fontSize="xl">Contract Address: {CONTRACT_ADDRESS}</Text>
         <Divider my="8" borderColor="gray.400" />
+        <Box>
+          <QRCode
+            level="Q"
+            style={{ width: 256 }}
+            value={JSON.stringify(qrProofRequestJson)}
+          />
+        </Box>
         <Box>
           <SubmitReportForm
             address={address}

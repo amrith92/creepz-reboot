@@ -1,15 +1,13 @@
-import { Box, Divider, Heading, Link, Text, useToast } from '@chakra-ui/react'
-import { ethers, providers, utils } from 'ethers'
+import { Heading, Text } from '@chakra-ui/react'
+import { providers } from 'ethers'
 import type { NextPage } from 'next'
-import { useAccount, useContractRead, useProvider } from 'wagmi'
+import { useAccount, useContractRead } from 'wagmi'
 import { Layout } from '../components/layout/Layout'
 import { useCheckLocalChain } from '../hooks/useCheckLocalChain'
 import { useIsMounted } from '../hooks/useIsMounted'
 import { IdManagerContract as LOCAL_CONTRACT_ADDRESS } from '../artifacts/contracts/contractAddress'
 import IdManagerContract from '../artifacts/contracts/implementation/CreepzIdManager.sol/CreepzIdManager.json'
-import { CreepzIdManager as IdManagerContractType } from '../types/typechain'
 import { keccak256 } from 'ethers/lib/utils.js'
-import { useEffect, useState } from 'react'
 
 /**
  * Constants & Helpers
@@ -19,7 +17,7 @@ const localProvider = new providers.StaticJsonRpcProvider(
   'http://localhost:8545'
 )
 
-const GOERLI_CONTRACT_ADDRESS = '0x3B73833638556f10ceB1b49A18a27154e3828303'
+const MUMBAI_CONTRACT_ADDRESS = '0xbCFEE8065E595D30E811303ce81711EcC9acDc50'
 
 const MyReputation: NextPage = () => {
   const { isLocalChain } = useCheckLocalChain()
@@ -30,7 +28,7 @@ const MyReputation: NextPage = () => {
 
   const CONTRACT_ADDRESS = isLocalChain
     ? LOCAL_CONTRACT_ADDRESS
-    : GOERLI_CONTRACT_ADDRESS
+    : MUMBAI_CONTRACT_ADDRESS
 
   const accountIdHash = address ? keccak256(address) : "";
 

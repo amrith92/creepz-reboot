@@ -21,9 +21,9 @@ const main = async () => {
     const verifierContract = "CreepzIdManager";
     // Schema has provided by the issuer
     // - typically found in https://platform-test.polygonid.com/claiming/created-schemas
-    const schemaHash = "9c2498080a90d43cada7fec79eeee8de"; // extracted from PID Platform
+    const schemaHash = "c464b7fc7261448a2025a1fdc0fce0fe"; // extracted from PID Platform
     // Deployed contract address
-    const ERC20VerifierAddress = "0x085523dF632FEaAE3Ae232E0EBc31FaC9956ddAb";
+    const verifierAddress = "0xbCFEE8065E595D30E811303ce81711EcC9acDc50";
     const schemaEnd = fromLittleEndian(hexToBytes(schemaHash));
     const query = {
         schema: ethers.BigNumber.from(schemaEnd),
@@ -35,21 +35,21 @@ const main = async () => {
         // 3 = greater-than
         // 4 = in
         // 5 = not-in
-        operator: 2,
+        operator: 1,
         // 20020101 refers to the numerical date we're using for our proof request
         // - see proofRequest.ts L489
-        value: [20020101, ...new Array(63).fill(0).map(i => 0)], // the value must be 1 = true
+        value: [1, ...new Array(63).fill(0).map(i => 0)], // the value must be 1 = true
         circuitId,
     };
 
     // Retrieve contract to interact with it
-    const erc20Verifier = await ethers.getContractAt(verifierContract, ERC20VerifierAddress);
+    const verifier = await ethers.getContractAt(verifierContract, verifierAddress);
 
     // Set zkpRequest for contract
     try {
         // Use as a means to keep track in the contract for number of mints a person can perform from a specific wallet address
-        const requestId = Number(await erc20Verifier.TRANSFER_REQUEST_ID());
-        const tx = await erc20Verifier.setZKPRequest(
+        const requestId = Number(await verifier.REPORT_REQUEST_ID());
+        const tx = await verifier.setZKPRequest(
             requestId, // 1
             validatorAddress,
             query

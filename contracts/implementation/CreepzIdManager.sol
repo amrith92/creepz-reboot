@@ -16,7 +16,8 @@ import "./ReporterRateLimiter.sol";
 contract CreepzIdManager is
     IdManager,
     ReporterRateLimiter,
-    AccessControl
+    AccessControl,
+    ZKPVerifier
 {
     int256 private constant SMOOTHING_FACTOR = 4;
     uint256 private constant REPUTATION_DELTA_UPPERBOUND = 20;
@@ -28,8 +29,8 @@ contract CreepzIdManager is
 
     event NewReport(bytes32 against, uint256 severity);
 
-    // mapping(uint256 => address) public idToAddress;
-    // mapping(address => uint256) public addressToId;
+    mapping(uint256 => address) public idToAddress;
+    mapping(address => uint256) public addressToId;
 
     mapping(bytes32 => Report) private reports;
     mapping(bytes32 => Reputation) reputations;
@@ -39,44 +40,44 @@ contract CreepzIdManager is
         initializeRateLimiter(100_000_000_000);
     }
 
-    // /**
-    //  * @dev _beforeProofSubmit
-    //  */
-    // function _beforeProofSubmit(
-    //     uint64, /* requestId */
-    //     uint256[] memory inputs,
-    //     ICircuitValidator validator
-    // ) internal view override {
-    //     // check that challenge input of the proof is equal to the msg.sender
-    //     address addr = GenesisUtils.int256ToAddress(
-    //         inputs[validator.getChallengeInputIndex()]
-    //     );
-    //     require(
-    //         _msgSender() == addr,
-    //         "address in proof is not a sender address"
-    //     );
-    // }
+    /**
+     * @dev _beforeProofSubmit
+     */
+    function _beforeProofSubmit(
+        uint64, /* requestId */
+        uint256[] memory inputs,
+        ICircuitValidator validator
+    ) internal view override {
+        // check that challenge input of the proof is equal to the msg.sender
+        address addr = GenesisUtils.int256ToAddress(
+            inputs[validator.getChallengeInputIndex()]
+        );
+        require(
+            _msgSender() == addr,
+            "address in proof is not a sender address"
+        );
+    }
 
-    // /**
-    //  * @dev _afterProofSubmit
-    //  */
-    // function _afterProofSubmit(
-    //     uint64 requestId,
-    //     uint256[] memory inputs,
-    //     ICircuitValidator validator
-    // ) internal override {
-    //     require(
-    //         requestId == REPORT_REQUEST_ID && addressToId[_msgSender()] == 0,
-    //         "proof can not be submitted more than once"
-    //     );
+    /**
+     * @dev _afterProofSubmit
+     */
+    function _afterProofSubmit(
+        uint64 requestId,
+        uint256[] memory inputs,
+        ICircuitValidator validator
+    ) internal override {
+        require(
+            requestId == REPORT_REQUEST_ID && addressToId[_msgSender()] == 0,
+            "proof can not be submitted more than once"
+        );
 
-    //     uint256 id = inputs[validator.getChallengeInputIndex()];
-    //     // execute the airdrop
-    //     if (idToAddress[id] == address(0)) {
-    //         addressToId[_msgSender()] = id;
-    //         idToAddress[id] = _msgSender();
-    //     }
-    // }
+        uint256 id = inputs[validator.getChallengeInputIndex()];
+        // execute the airdrop
+        if (idToAddress[id] == address(0)) {
+            addressToId[_msgSender()] = id;
+            idToAddress[id] = _msgSender();
+        }
+    }
 
     function setReporterRateLimit(uint64 aRate)
         public

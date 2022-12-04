@@ -6,6 +6,8 @@
     "chain": "npx hardhat node",
     "compile": "npx hardhat compile",
     "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy-polygon-mumbai": "npx hardhat run scripts/deploy.ts --network polygon_mumbai",
+    "setup-zkp-polygon-mumbai": "npx hardhat run scripts/setup-zkp.ts --network polygon_mumbai",
     "test": "hardhat test"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "typescript": "^4.8.2"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "solidity-bytes-utils": "^0.8.0"
   }
 }
