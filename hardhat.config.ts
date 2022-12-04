@@ -14,7 +14,8 @@ const config: HardhatUserConfig = {
     },
     polygon_mumbai: {
       url: "https://rpc-mumbai.maticvigil.com",
-      accounts: [process.env.PRIVATE_KEY || ""]
+      accounts: [process.env.PRIVATE_KEY || ""],
+      gasPrice: 35000000000,
     },
   },
   etherscan: {
