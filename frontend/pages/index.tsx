@@ -71,7 +71,7 @@ const Home: NextPage = () => {
             <Text>WooHoo! Your report was successfully submitted.</Text>
             <Text>
               <Link
-                href={`https://goerli.etherscan.io/tx/${data?.blockHash}`}
+                href={`https://mumbai.polygonscan.com/tx/${data?.blockHash}`}
                 isExternal
               >
                 View on Etherscan
