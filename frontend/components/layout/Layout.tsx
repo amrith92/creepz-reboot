@@ -51,7 +51,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         <Container mt="8" py="8" maxWidth="container.xl">
           <Text mb="4">
             Built with &#9829; by{' '}
-            a+s
+            team anagh
           </Text>
           <LocalFaucetButton />
         </Container>

@@ -27,34 +27,86 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
+export declare namespace ICircuitValidator {
+  export type CircuitQueryStruct = {
+    schema: PromiseOrValue<BigNumberish>;
+    slotIndex: PromiseOrValue<BigNumberish>;
+    operator: PromiseOrValue<BigNumberish>;
+    value: PromiseOrValue<BigNumberish>[];
+    circuitId: PromiseOrValue<string>;
+  };
+
+  export type CircuitQueryStructOutput = [
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber[],
+    string
+  ] & {
+    schema: BigNumber;
+    slotIndex: BigNumber;
+    operator: BigNumber;
+    value: BigNumber[];
+    circuitId: string;
+  };
+}
+
 export interface CreepzIdManagerInterface extends utils.Interface {
   functions: {
     "COMMUNITY_MODERATOR_ROLE()": FunctionFragment;
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
+    "REPORT_REQUEST_ID()": FunctionFragment;
+    "addressToId(address)": FunctionFragment;
     "getReputation(bytes32)": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
+    "getSupportedRequests()": FunctionFragment;
+    "getZKPRequest(uint64)": FunctionFragment;
     "grantRole(bytes32,address)": FunctionFragment;
     "hasRole(bytes32,address)": FunctionFragment;
+    "idToAddress(uint256)": FunctionFragment;
+    "owner()": FunctionFragment;
+    "proofs(address,uint64)": FunctionFragment;
+    "renounceOwnership()": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
     "report(bytes32,uint256,string)": FunctionFragment;
+    "requestQueries(uint64)": FunctionFragment;
+    "requestValidators(uint64)": FunctionFragment;
     "revokeRole(bytes32,address)": FunctionFragment;
     "setReporterRateLimit(uint64)": FunctionFragment;
+    "setZKPRequest(uint64,address,(uint256,uint256,uint256,uint256[],string))": FunctionFragment;
+    "submitZKPResponse(uint64,uint256[],uint256[2],uint256[2][2],uint256[2])": FunctionFragment;
+    "supportedRequests(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
+    "transferOwnership(address)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
       | "COMMUNITY_MODERATOR_ROLE"
       | "DEFAULT_ADMIN_ROLE"
+      | "REPORT_REQUEST_ID"
+      | "addressToId"
       | "getReputation"
       | "getRoleAdmin"
+      | "getSupportedRequests"
+      | "getZKPRequest"
       | "grantRole"
       | "hasRole"
+      | "idToAddress"
+      | "owner"
+      | "proofs"
+      | "renounceOwnership"
       | "renounceRole"
       | "report"
+      | "requestQueries"
+      | "requestValidators"
       | "revokeRole"
       | "setReporterRateLimit"
+      | "setZKPRequest"
+      | "submitZKPResponse"
+      | "supportedRequests"
       | "supportsInterface"
+      | "transferOwnership"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -66,6 +118,14 @@ export interface CreepzIdManagerInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "REPORT_REQUEST_ID",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "addressToId",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getReputation",
     values: [PromiseOrValue<BytesLike>]
   ): string;
@@ -74,12 +134,33 @@ export interface CreepzIdManagerInterface extends utils.Interface {
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getSupportedRequests",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getZKPRequest",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "grantRole",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "hasRole",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "idToAddress",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "proofs",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "renounceRole",
@@ -94,6 +175,14 @@ export interface CreepzIdManagerInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "requestQueries",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "requestValidators",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "revokeRole",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string;
@@ -102,8 +191,37 @@ export interface CreepzIdManagerInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "setZKPRequest",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      ICircuitValidator.CircuitQueryStruct
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "submitZKPResponse",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>[],
+      [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      [
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+      ],
+      [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "supportedRequests",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(
@@ -115,6 +233,14 @@ export interface CreepzIdManagerInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "REPORT_REQUEST_ID",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "addressToId",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getReputation",
     data: BytesLike
   ): Result;
@@ -122,31 +248,75 @@ export interface CreepzIdManagerInterface extends utils.Interface {
     functionFragment: "getRoleAdmin",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSupportedRequests",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getZKPRequest",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "idToAddress",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "proofs", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceRole",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "report", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "requestQueries",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "requestValidators",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setReporterRateLimit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setZKPRequest",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "submitZKPResponse",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "supportedRequests",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "supportsInterface",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
 
   events: {
     "NewReport(bytes32,uint256)": EventFragment;
+    "OwnershipTransferred(address,address)": EventFragment;
     "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
     "RoleGranted(bytes32,address,address)": EventFragment;
     "RoleRevoked(bytes32,address,address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "NewReport"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
@@ -162,6 +332,18 @@ export type NewReportEvent = TypedEvent<
 >;
 
 export type NewReportEventFilter = TypedEventFilter<NewReportEvent>;
+
+export interface OwnershipTransferredEventObject {
+  previousOwner: string;
+  newOwner: string;
+}
+export type OwnershipTransferredEvent = TypedEvent<
+  [string, string],
+  OwnershipTransferredEventObject
+>;
+
+export type OwnershipTransferredEventFilter =
+  TypedEventFilter<OwnershipTransferredEvent>;
 
 export interface RoleAdminChangedEventObject {
   role: string;
@@ -231,6 +413,13 @@ export interface CreepzIdManager extends BaseContract {
 
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
+    REPORT_REQUEST_ID(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    addressToId(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getReputation(
       identifier: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -240,6 +429,15 @@ export interface CreepzIdManager extends BaseContract {
       role: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    getSupportedRequests(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]] & { arr: BigNumber[] }>;
+
+    getZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[ICircuitValidator.CircuitQueryStructOutput]>;
 
     grantRole(
       role: PromiseOrValue<BytesLike>,
@@ -252,6 +450,23 @@ export interface CreepzIdManager extends BaseContract {
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    idToAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    owner(overrides?: CallOverrides): Promise<[string]>;
+
+    proofs(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
@@ -266,6 +481,23 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    requestQueries(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, string] & {
+        schema: BigNumber;
+        slotIndex: BigNumber;
+        operator: BigNumber;
+        circuitId: string;
+      }
+    >;
+
+    requestValidators(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     revokeRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
@@ -277,15 +509,51 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    setZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
+      validator: PromiseOrValue<string>,
+      query: ICircuitValidator.CircuitQueryStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    submitZKPResponse(
+      requestId: PromiseOrValue<BigNumberish>,
+      inputs: PromiseOrValue<BigNumberish>[],
+      a: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      b: [
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+      ],
+      c: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    supportedRequests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   COMMUNITY_MODERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+  REPORT_REQUEST_ID(overrides?: CallOverrides): Promise<BigNumber>;
+
+  addressToId(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   getReputation(
     identifier: PromiseOrValue<BytesLike>,
@@ -296,6 +564,13 @@ export interface CreepzIdManager extends BaseContract {
     role: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  getSupportedRequests(overrides?: CallOverrides): Promise<BigNumber[]>;
+
+  getZKPRequest(
+    requestId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<ICircuitValidator.CircuitQueryStructOutput>;
 
   grantRole(
     role: PromiseOrValue<BytesLike>,
@@ -308,6 +583,23 @@ export interface CreepzIdManager extends BaseContract {
     account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  idToAddress(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  owner(overrides?: CallOverrides): Promise<string>;
+
+  proofs(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  renounceOwnership(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   renounceRole(
     role: PromiseOrValue<BytesLike>,
@@ -322,6 +614,23 @@ export interface CreepzIdManager extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  requestQueries(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, string] & {
+      schema: BigNumber;
+      slotIndex: BigNumber;
+      operator: BigNumber;
+      circuitId: string;
+    }
+  >;
+
+  requestValidators(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   revokeRole(
     role: PromiseOrValue<BytesLike>,
     account: PromiseOrValue<string>,
@@ -333,15 +642,51 @@ export interface CreepzIdManager extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  setZKPRequest(
+    requestId: PromiseOrValue<BigNumberish>,
+    validator: PromiseOrValue<string>,
+    query: ICircuitValidator.CircuitQueryStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  submitZKPResponse(
+    requestId: PromiseOrValue<BigNumberish>,
+    inputs: PromiseOrValue<BigNumberish>[],
+    a: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+    b: [
+      [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    ],
+    c: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  supportedRequests(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  transferOwnership(
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     COMMUNITY_MODERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
 
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+    REPORT_REQUEST_ID(overrides?: CallOverrides): Promise<BigNumber>;
+
+    addressToId(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getReputation(
       identifier: PromiseOrValue<BytesLike>,
@@ -352,6 +697,13 @@ export interface CreepzIdManager extends BaseContract {
       role: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    getSupportedRequests(overrides?: CallOverrides): Promise<BigNumber[]>;
+
+    getZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<ICircuitValidator.CircuitQueryStructOutput>;
 
     grantRole(
       role: PromiseOrValue<BytesLike>,
@@ -364,6 +716,21 @@ export interface CreepzIdManager extends BaseContract {
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    idToAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    owner(overrides?: CallOverrides): Promise<string>;
+
+    proofs(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
@@ -378,6 +745,23 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    requestQueries(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, string] & {
+        schema: BigNumber;
+        slotIndex: BigNumber;
+        operator: BigNumber;
+        circuitId: string;
+      }
+    >;
+
+    requestValidators(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     revokeRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
@@ -389,10 +773,39 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    setZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
+      validator: PromiseOrValue<string>,
+      query: ICircuitValidator.CircuitQueryStruct,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    submitZKPResponse(
+      requestId: PromiseOrValue<BigNumberish>,
+      inputs: PromiseOrValue<BigNumberish>[],
+      a: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      b: [
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+      ],
+      c: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    supportedRequests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -401,6 +814,15 @@ export interface CreepzIdManager extends BaseContract {
       severity?: null
     ): NewReportEventFilter;
     NewReport(against?: null, severity?: null): NewReportEventFilter;
+
+    "OwnershipTransferred(address,address)"(
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnershipTransferredEventFilter;
+    OwnershipTransferred(
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnershipTransferredEventFilter;
 
     "RoleAdminChanged(bytes32,bytes32,bytes32)"(
       role?: PromiseOrValue<BytesLike> | null,
@@ -441,6 +863,13 @@ export interface CreepzIdManager extends BaseContract {
 
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
+    REPORT_REQUEST_ID(overrides?: CallOverrides): Promise<BigNumber>;
+
+    addressToId(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getReputation(
       identifier: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -448,6 +877,13 @@ export interface CreepzIdManager extends BaseContract {
 
     getRoleAdmin(
       role: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSupportedRequests(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -463,6 +899,23 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    idToAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proofs(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     renounceRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
@@ -476,6 +929,16 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    requestQueries(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    requestValidators(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     revokeRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
@@ -487,9 +950,38 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    setZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
+      validator: PromiseOrValue<string>,
+      query: ICircuitValidator.CircuitQueryStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    submitZKPResponse(
+      requestId: PromiseOrValue<BigNumberish>,
+      inputs: PromiseOrValue<BigNumberish>[],
+      a: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      b: [
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+      ],
+      c: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    supportedRequests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -502,6 +994,13 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    REPORT_REQUEST_ID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    addressToId(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getReputation(
       identifier: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -509,6 +1008,15 @@ export interface CreepzIdManager extends BaseContract {
 
     getRoleAdmin(
       role: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getSupportedRequests(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -524,6 +1032,23 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    idToAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    proofs(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     renounceRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
@@ -537,6 +1062,16 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    requestQueries(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    requestValidators(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     revokeRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
@@ -548,9 +1083,38 @@ export interface CreepzIdManager extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    setZKPRequest(
+      requestId: PromiseOrValue<BigNumberish>,
+      validator: PromiseOrValue<string>,
+      query: ICircuitValidator.CircuitQueryStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    submitZKPResponse(
+      requestId: PromiseOrValue<BigNumberish>,
+      inputs: PromiseOrValue<BigNumberish>[],
+      a: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      b: [
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+        [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+      ],
+      c: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    supportedRequests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    transferOwnership(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
